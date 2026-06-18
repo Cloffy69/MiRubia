@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>No puedo dejar de pensar en vos</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body{
+    height:100%;
+    width:100%;
+}
+
+body{
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:black;
+}
+
+/* FONDO OPTIMIZADO PARA MOBILE */
+.fondo{
+    position:relative;
+    width:100%;
+    min-height:100dvh; /* clave para móviles modernos */
+    height:100vh; /* fallback */
+    background:url('imagen.jpg') center center/cover no-repeat;
+}
+
+/* overlay */
+.fondo::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.30);
+}
+
+/* MENSAJE CENTRADO MEJOR PARA MÓVIL */
+.mensaje{
+    position:absolute;
+    bottom:10%;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:600px;
+    z-index:10;
+    text-align:center;
+    color:white;
+    text-shadow:0 0 10px rgba(0,0,0,.8);
+}
+
+.mensaje h1{
+    font-size:clamp(1.6rem,6vw,3.2rem);
+    font-weight:300;
+    line-height:1.2;
+}
+
+/* BOTÓN MÁS TÁCTIL (MÓVIL) */
+.boton-musica{
+    margin-top:18px;
+    padding:14px 20px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:15px;
+    background:white;
+    color:black;
+    max-width:100%;
+    touch-action:manipulation;
+}
+
+/* CORAZONES */
+.corazon{
+    position:absolute;
+    pointer-events:none;
+    font-size:22px;
+    animation:flotar 2s forwards ease-out;
+    z-index:999;
+}
+
+@keyframes flotar{
+    0%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+    100%{
+        opacity:0;
+        transform:translate(-50%,-160px) scale(1.6);
+    }
+}
+
+/* mejora para pantallas MUY pequeñas */
+@media (max-width: 400px){
+    .mensaje h1{
+        font-size:1.4rem;
+    }
+
+    .boton-musica{
+        font-size:14px;
+        padding:12px 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="fondo" id="fondo">
+
+    <div class="mensaje">
+        <h1>No puedo dejar de pensar en vos ❤️</h1>
+
+        <button class="boton-musica" onclick="reproducirMusica()">
+            🎵 Te la dediqué una vez, y te la dedico siempre
+        </button>
+    </div>
+
+</div>
+
+<script>
+const fondo = document.getElementById('fondo');
+
+function crearCorazon(x,y){
+    const corazon = document.createElement('div');
+    corazon.classList.add('corazon');
+
+    const corazones = ['❤️','💖','💕','💗'];
+
+    corazon.innerHTML = corazones[Math.floor(Math.random()*corazones.length)];
+
+    corazon.style.left = x + 'px';
+    corazon.style.top = y + 'px';
+
+    document.body.appendChild(corazon);
+
+    setTimeout(()=> corazon.remove(), 2000);
+}
+
+fondo.addEventListener('click',(e)=>{
+    crearCorazon(e.clientX,e.clientY);
+});
+
+function reproducirMusica(){
+    window.open(
+        'https://www.youtube.com/watch?v=UsR08cY8k0A',
+        '_blank'
+    );
+}
+</script>
+
+</body>
+</html>
